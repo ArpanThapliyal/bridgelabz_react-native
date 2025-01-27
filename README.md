@@ -6,3 +6,5 @@
   - file structure
   - components
   - props and states
+### PROJECTS :
+- myntra wishlist UI clone `(27-01-25)`
