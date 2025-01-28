@@ -10,35 +10,24 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 const scrolling = ()=>{
+      const [selectedText, setSelectedText] = useState('All'); // Track the selected text
+
     return(
         <SafeAreaView>
             <View style={style.container} >
-            <ScrollView horizontal={true} showsHorizontalScrollIndicator ={false}>
-                <TouchableOpacity>
-                <Text style = {style.text}>All</Text>
+                <TouchableOpacity style={style.collectionbox}>
+                    <Icon name='subscriptions' size={20}/>   
+                    <Text style = {style.collectiontxt}>Collections</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
-                <Text style = {style.text}>Trouser</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                <Text style = {style.text}>Shirts</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                <Text style = {style.text}>Shoes</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                <Text style = {style.text}>Tshirts</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                <Text style = {style.text}>hoodie</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                <Text style = {style.text}>Jeans</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                <Text style = {style.text}>Lower</Text>
-                </TouchableOpacity>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator ={false} style={style.scroll}>
+            {['All', 'Trouser', 'Shirts', 'Shoes', 'Tshirts', 'Hoodie', 'Jeans', 'Lower'].map((item) => (
+            <TouchableOpacity key={item} onPress={() => setSelectedText(item)}>
+              <Text style={selectedText === item ? style.textB : style.textA}>{item}</Text>
+            </TouchableOpacity>
+          ))}
                </ScrollView>
             </View>
         </SafeAreaView>
@@ -51,14 +40,42 @@ const style = StyleSheet.create({
         flex:1,
         flexDirection:'row',
     },
-    text :{
-        fontSize:18,
+    collectionbox:{
+        flexDirection:'row',
+        backgroundColor:'#EAF0F1',
+        marginRight:8,
+        marginBottom:2,
+        marginTop:3,
+        padding:8
+    },
+    collectiontxt:{
+        fontSize:15,
+        fontWeight:'bold',
+        paddingTop:1,
+        marginLeft:6
+    },
+    scroll:{
+        borderLeftWidth:0.2
+    },
+    textA :{
+        fontSize:14,
+        color:'#535C68',
         marginHorizontal:5,
         padding:15,
         paddingVertical:10,
-        backgroundColor:'#EAF0F1',
-        borderRadius :20
-
+        borderWidth:1,
+        borderRadius :20,
+        borderColor:'#535C68'
+    },
+    textB :{
+        fontSize:14,
+        color:'red',
+        marginHorizontal:5,
+        padding:15,
+        paddingVertical:10,
+        borderWidth:1,
+        borderRadius :20,
+        borderColor:'red'
     },
 });
 

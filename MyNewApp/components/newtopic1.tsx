@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Text, View, TextInput, StyleSheet, Image, TouchableOpacity } from "react-native";
-import FontAwesome6 from '@react-native-vector-icons/fontawesome6'; 
+import Icon from 'react-native-vector-icons/MaterialIcons'; 
 const NewTopic1 = () => {
   //name
   const [text, setText] = useState(""); // State for submitted name
@@ -60,7 +60,7 @@ const NewTopic1 = () => {
       />
       {/* eye */}
       <TouchableOpacity onPress={()=>{seteye(!peye)}}>
-      const icon = <FontAwesome6
+       <Icon
             style={styles.eye}
             name= {peye ? "eye" : "eye-slash"}
             size={24}

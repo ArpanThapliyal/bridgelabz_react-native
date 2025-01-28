@@ -1,4 +1,5 @@
 import React from "react";
+import { Linking } from "react-native";
 import {
 View,
 Text,
@@ -6,30 +7,37 @@ TextInput,
 SafeAreaView,
 ScrollView,
 StyleSheet,
-Image
+Image,
+TouchableOpacity,
+Button
 
 } from 'react-native';
 
 const flex_scrollview = ()=>{
+
+    function openwebsite(websitelink :string ){
+        Linking.openURL(websitelink);
+    }
+
     return(
     <>
     <View>
-        <TextInput style = {s.text}>Flat cards</TextInput>
+        <Text style = {s.text}>Flat cards</Text>
         <ScrollView horizontal ={true} style ={s.container} >
         <View style={[s.cards,s.card1]}>
-            <TextInput style = {s.text}>red</TextInput>
+            <Text style = {s.text}>red</Text>
         </View>
         <View style={[s.cards,s.card2]}>
-            <TextInput style = {s.text}>green</TextInput>
+            <Text style = {s.text}>green</Text>
         </View>
         <View style={[s.cards,s.card3]}>
-            <TextInput style = {s.text}>blue</TextInput>
+            <Text style = {s.text}>blue</Text>
         </View>
         <View style={[s.cards,s.card4]}>
-            <TextInput style = {s.text}>orange</TextInput>
+            <Text style = {s.text}>orange</Text>
         </View>
         <View style={[s.cards,s.card5]}>
-            <TextInput style = {s.text}>pink</TextInput>
+            <Text style = {s.text}>pink</Text>
         </View>
 
         </ScrollView>
@@ -52,7 +60,12 @@ const flex_scrollview = ()=>{
             <Text style = {s2.text_head}>Demon Slayer</Text>
             <Text style = {s2.text_sub_head}>On Crunchyroll</Text>
             <Text style = {s2.text_desc}>Demon Slayer: Kimetsu no Yaiba is an anime series about a young boy who becomes a demon slayer to avenge his family and cure his sister</Text>
+            
+            <TouchableOpacity style={s2.link_button} 
+            onPress={()=>{openwebsite('https://youtube.com')} }>
             <Text style = {s2.text_foot}>Released </Text>
+            </TouchableOpacity>
+            
             </View>
         </View>    
         <View style={s2.cards}>
@@ -118,6 +131,7 @@ const s = StyleSheet.create({
     text :{
         flex : 1,
         alignSelf :'center',
+        textAlignVertical:'center',
         color : 'white',
         fontSize :20,
         fontWeight :'bold'
@@ -126,7 +140,8 @@ const s = StyleSheet.create({
 const s2 = StyleSheet.create({
     container :{
         flex:1,
-        flexDirection :'row'
+        flexDirection :'row',
+        flexWrap:'wrap'
     },
     cards :{
         margin :20,
@@ -166,6 +181,14 @@ const s2 = StyleSheet.create({
         fontSize:20,
         color : '#3C40C6',
         marginTop :5
+    },
+    link_button:{
+        backgroundColor:'grey',
+        alignSelf: 'flex-start',
+        marginTop:10,
+        paddingHorizontal: 10,
+        paddingVertical: 5, 
+        borderRadius: 5, 
     },
     card1 :{
         

@@ -43,6 +43,7 @@ const App =()=>{
     {/* <Newtopic1/> */}
     {/* <Flex_scrollview/> */}
 
+    {/* contain myntra wishlist clone */}
     <Start/>
 
 
