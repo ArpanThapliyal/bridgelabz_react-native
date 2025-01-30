@@ -12,7 +12,8 @@ import {
 import Userhabbits from './components/userhabbits';
 import Newtopic1 from './components/newtopic1';
 import Flex_scrollview from './components/flex_scrollview';
-import Start from './pro_comp/start';
+import Start from './pro_comp/myntra/start';
+import Password_start from './components/password_generator/password_start';
 
 // js variabels
 let name = "poppye";
@@ -42,9 +43,13 @@ const App =()=>{
     {/* <Userdetail/>  */}
     {/* <Newtopic1/> */}
     {/* <Flex_scrollview/> */}
-
+    
+    {/* password generator */}
+    <Password_start/>
+    
     {/* contain myntra wishlist clone */}
-    <Start/>
+    {/* <Start/> */}
+    
 
 
     </SafeAreaView>
@@ -63,7 +68,6 @@ const Userdetail =()=>{
     </View>
   )
 };
-
 
 
 const style = StyleSheet.create({

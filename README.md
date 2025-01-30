@@ -6,3 +6,8 @@
   - file structure
   - components
   - props and states
+- till `(29-01-2025)`
+  - linking
+  - some more components
+### PROJECT CLASS WORK :
+  - myntra wishlist clone
