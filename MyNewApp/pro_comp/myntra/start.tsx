@@ -2,19 +2,108 @@ import React,{useState} from 'react';
 import {
   Text,
   View,
-  Button,
-  Alert,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   TouchableOpacity,
-  Image,
+  FlatList,
+  RefreshControl
 } from 'react-native';
  
 import Scrolling from './scrolling';
+import Card from './card';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+
+const DATA =[
+    {
+        id:'1',
+        img:'https://assets.myntassets.com/w_412,q_60,dpr_2,fl_progressive/assets/images/11261278/2023/4/21/ca7de421-3d24-4c1b-a922-5641a2f062f61682057816466-HRX-by-Hrithik-Roshan-Men-White-Solid-Gamescape-Sneakers-929-1.jpg',
+        rating:'4.2', 
+        review:'1.1k',
+        name:'Puma',
+        price:'₹2639',
+        prev_price:'₹4799',
+        off:'(30% OFF)',
+
+    },
+    {
+        id:'2',
+        img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCH_cBj_aDyGW0wH0NH66eGWVwA63Wjq0VqA&s',
+        rating:'4.2', 
+        review:'48.8k',
+        name:'HRX by Hrithik',
+        price:'₹999',
+        prev_price:'₹2999',
+        off:'(Rs. 2000 OFF)',
+
+    },
+    {
+        id:'3',
+        img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPh1LN53VuJOF480Wu-WgIYtksL5bHo4XtFg&s',
+        rating:'4.3', 
+        review:'48',
+        name:'Crazymonk',
+        price:'₹699',
+        prev_price:'₹1499',
+        off:'(Rs. 800 OFF)',
+
+    },
+    {
+        id:'4',
+        img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoGZD__oH6d8t7kSO1uJ_b2UaNiR-zFgDpdg&s',
+        rating:'4.5', 
+        review:'59',
+        name:'The Souled Store',
+        price:'₹899',
+        prev_price:'₹1499',
+        off:'(40% OFF)',
+        limited:'Only Few Left!',
+
+    },
+    {
+        id:'5',
+        img:'https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/24439310/2024/9/26/db521cb8-8b5b-4e98-bbe0-5f68f718b6321727353577527-Red-Tape-Men-Colourblocked-Lace-Ups-Sneakers-890172735357708-1.jpg',
+        rating:'4.4', 
+        review:'2.6k',
+        name:'Red Tape',
+        price:'₹1679',
+        prev_price:'₹5599',
+        off:'(70% OFF)',
+
+    },
+    {
+        id:'6',
+        img:'https://assets.myntassets.com/dpr_1.5,q_60,w_400,c_limit,fl_progressive/assets/images/27462412/2024/9/26/1e397323-1acf-47d6-948b-d71afc2ee4681727354498635-Red-Tape-Men-Perforations-Lace-Up-Sneakers-1411727354498430-1.jpg',
+        rating:'4.5', 
+        review:'1.1k',
+        name:'Red Tape',
+        price:'₹1385',
+        prev_price:'₹7699',
+        off:'(82% OFF)',
+
+    },
+    {
+        id:'7',
+        img:'https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/31072311/2024/10/23/277d19da-a34c-4d13-8e81-b3e96aca3ba01729623408183-Powerlook-Men-Pure-Cotton-Loose-Fit-Cargos-Trousers-66617296-1.jpg',
+        rating:'4.5', 
+        review:'9',
+        name:'Powerlook',
+        price:'₹1503',
+        prev_price:'₹3199',
+        off:'(53% OFF)',
+        limited:'Only Few Left!'
+
+    },
+]
 const start = ()=>{
-    const[txt,settxt] = useState('MOVE TO BAG');
+   const [refreshing,setrefreshing] = useState(false);
+
+   const onRefresh =()=>{
+    setrefreshing(true);
+    setTimeout(()=>{
+        setrefreshing(false);
+    },1200);
+   }
+
     return(
         <SafeAreaView>
             <View style={style.container}>
@@ -36,160 +125,25 @@ const start = ()=>{
                     </View>
                 </View>
                 <View style={style.heading2}> 
-                    <Scrolling/>
-                </View>
+                    <FlatList
+                        data={DATA}
+                        renderItem={({item})=> <Card item={item}/>}
+                        keyExtractor={item=>item.id}
+                        numColumns={2}
+                        contentContainerStyle={style.supercardcontainer}
+                        ListHeaderComponent={<Scrolling/>}
+                        columnWrapperStyle={{
+                            justifyContent : "space-between",
+                        }}
+                        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}
+                        // ItemSeparatorComponent={()=><View style={style.card}/>}
+                        // horizontal={true}
+                        // inverted
+                        // initialScrollIndex={3}
 
-                <View style={style.supercardcontainer}>
-                    {/* cards */}
-                    <View style={style.cardcontainer}>
-                        <View style={style.cards}>
-                        <TouchableOpacity >
-                        <Image
-                        src='https://assets.myntassets.com/w_412,q_60,dpr_2,fl_progressive/assets/images/11261278/2023/4/21/ca7de421-3d24-4c1b-a922-5641a2f062f61682057816466-HRX-by-Hrithik-Roshan-Men-White-Solid-Gamescape-Sneakers-929-1.jpg'
-                        style = {style.img}
-                        />
-                        {/* Rating */}
-                            <View style={style.ratingcontainer}>
-                                <Text style={style.rating}>4.2 </Text>
-                                <Text style={style.ratingstar}>★</Text>
-                                <Text style={style.review}>1.1k</Text>
-                            </View>
-                            <TouchableOpacity>
-                                <Icon name='cancel' size={28} style={style.cancel}/>
-                            </TouchableOpacity>
-                        </TouchableOpacity>    
-                            {/* Text and Buy Button */}
-                            <View>
-                                <Text style = {style.text1}>Puma </Text>
-                                <View style = {style.textdesg}>
-                                <Text style = {[style.text2, style.price]}>₹2639  </Text>
-                                <Text style={{ textDecorationLine: 'line-through', color: 'grey',fontSize:13 }}>₹4799</Text>
-                                <Text style = {[style.text2, style.offer]}>(30% OFF)</Text>
-                                </View>
-                            </View>
-                            
-                            
-                            <View>
-                                <TouchableOpacity onPress={()=>{settxt('MOVED!')}}>
-                                    <Text style = {style.buytext}>{txt}</Text>
-                                </TouchableOpacity>
-                            </View>  
-                            </View>
-                        
-                    </View>
-                   
-                    {/* cards */}
-                    <View style={style.cardcontainer}>
-                        <View style={style.cards}>
-                        <TouchableOpacity >
-                        <Image
-                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCH_cBj_aDyGW0wH0NH66eGWVwA63Wjq0VqA&s'
-                        style = {style.img}
-                        />
-                        {/* Rating */}
-                            <View style={style.ratingcontainer}>
-                                <Text style={style.rating}>4.2 </Text>
-                                <Text style={style.ratingstar}>★</Text>
-                                <Text style={style.review}>48.8k</Text>
-                            </View>
-                            <TouchableOpacity>
-                                <Icon name='cancel' size={28} style={style.cancel}/>
-                            </TouchableOpacity>
-                        </TouchableOpacity>    
-                            {/* Text and Buy Button */}
-                            <View>
-                                <Text style = {style.text1}>HRX by Hrithik</Text>
-                                <View style = {style.textdesg}>
-                                <Text style = {[style.text2, style.price]}>₹999  </Text>
-                                <Text style={{ textDecorationLine: 'line-through', color: 'grey',fontSize:13 }}>₹2999</Text>
-                                <Text style = {[style.text2, style.offer]}>(Rs. 2000 OFF)</Text>
-                                </View>
-                            </View>
-                             
-                            <View>
-                                <TouchableOpacity onPress={()=>{settxt('MOVED!')}}>
-                                    <Text style = {style.buytext}>{txt}</Text>
-                                </TouchableOpacity>
-                            </View>  
-                            </View>
-                        
-                    </View>
-                    {/* cards */}
-                    <View style={style.cardcontainer}>
-                        <View style={style.cards}>
-                        <TouchableOpacity >
-                        <Image
-                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPh1LN53VuJOF480Wu-WgIYtksL5bHo4XtFg&s'
-                        style = {style.img}
-                        />
-                        {/* Rating */}
-                            <View style={style.ratingcontainer}>
-                                <Text style={style.rating}>4.3 </Text>
-                                <Text style={style.ratingstar}>★</Text>
-                                <Text style={style.review}>48</Text>
-                            </View>
-                            <TouchableOpacity>
-                                <Icon name='cancel' size={28} style={style.cancel}/>
-                            </TouchableOpacity>
-                        </TouchableOpacity>    
-                            {/* Text and Buy Button */}
-                            <View>
-                                <Text style = {style.text1}>Crazymonk</Text>
-                                <View style = {style.textdesg}>
-                                <Text style = {[style.text2, style.price]}>₹699  </Text>
-                                <Text style={{ textDecorationLine: 'line-through', color: 'grey',fontSize:13 }}>₹1499</Text>
-                                <Text style = {[style.text2, style.offer]}>(Rs. 800 OFF)</Text>
-                                </View>
-                            </View>
-                            
-                            
-                            <View>
-                                <TouchableOpacity onPress={()=>{settxt('MOVED!')}}>
-                                    <Text style = {style.buytext}>{txt}</Text>
-                                </TouchableOpacity>
-                            </View>  
-                            </View>
-                        
-                    </View>
-                   
-                    {/* cards */}
-                    <View style={style.cardcontainer}>
-                        <View style={style.cards}>
-                        <TouchableOpacity >
-                        <Image
-                        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoGZD__oH6d8t7kSO1uJ_b2UaNiR-zFgDpdg&s'
-                        style = {style.img}
-                        />
-                        {/* Rating */}
-                            <View style={style.ratingcontainer}>
-                                <Text style={style.rating}>4.5 </Text>
-                                <Text style={style.ratingstar}>★</Text>
-                                <Text style={style.review}>59</Text>
-                            </View>
-                            <TouchableOpacity>
-                                <Icon name='cancel' size={28} style={style.cancel}/>
-                            </TouchableOpacity>
-                        </TouchableOpacity>    
-                            {/* Text and Buy Button */}
-                            <View>
-                                <Text style = {style.text1}>The Souled Store</Text>
-                                <View style = {style.textdesg}>
-                                <Text style = {[style.text2, style.price]}>₹899  </Text>
-                                <Text style={{ textDecorationLine: 'line-through', color: 'grey',fontSize:13 }}>₹1499</Text>
-                                <Text style = {[style.text2, style.offer]}>(40% OFF)</Text>
-                                </View>
-                            </View>
-                            
-                            
-                            <View>
-                                <TouchableOpacity onPress={()=>{settxt('MOVED!')}}>
-                                    <Text style = {style.buytext}>{txt}</Text>
-                                </TouchableOpacity>
-                            </View>  
-                            </View>
-                        
-                    </View>
-                </View>     
+                    />
+                </View>
+                     
             </View>
         </SafeAreaView>
     );
@@ -222,114 +176,12 @@ const style = StyleSheet.create({
     search:{
         marginRight:11,
     },
-    heading2:{},
+    heading2:{
+        marginBottom:185,
+    },
     supercardcontainer: {
-        flexDirection: 'row', // Arrange items in a row
-        flexWrap: 'wrap', // Allow items to wrap to the next row
-        marginHorizontal: 10,    
-        justifyContent: 'space-between', // Space items evenly
+        marginHorizontal: 8,    
     },
-    cardcontainer: {
-        width: '48%', // Make each card take up 48% of the width for spacing
-        marginVertical: 6, // Add spacing between rows
-    },
-    cards: {
-        borderBlockColor: 'black',
-        borderWidth: 0.18,
-        elevation: 6,
-        backgroundColor: 'white',
-        borderRadius: 6,
-    },
-    img:{
-        height :220,
-        width: '100%',
-        borderTopLeftRadius:6,
-        borderTopRightRadius:6
-    },
-    text1:{
-        fontSize :18,
-        marginStart :5,
-        color:'grey'
-    },
-    textdesg:{
-        flexDirection:'row',
-        marginTop:4,
-        marginStart :1,   
-    },
-    text2:{
-        marginStart :6  
-    },
-    price :{
-        fontWeight:'bold',
-        fontSize:13 
-    },
-    offer :{
-        color :'red',
-        fontSize:13   
-    },
-    buytext:{
-        flex:1,
-        alignSelf:'center',
-        fontSize:16,
-        margin:18,
-        padding:6,
-        marginTop :22,
-        color:'red',
-        backgroundColor:'white',
-        fontWeight:'bold',
-        elevation:6,
-        // shadowOffset : {
-        //     width:1,
-        //     height:1
-        // },
-        shadowColor:'transparent',
-        // shadowOpacity:0.4,
-        // shadowRadius:10,
-        borderWidth:0.2,
-        borderRadius:4,
-    },
-    ratingcontainer: {
-        position: 'absolute', // Position it absolutely within the parent
-        bottom: 8, // Distance from the bottom of the image
-        left: 8, // Distance from the left of the image
-        flexDirection: 'row', // Arrange rating and review horizontally
-        alignItems: 'center', // Center items vertically
-        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Semi-transparent background for better visibility
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-        borderRadius: 12, // Rounded edges
-    },
-    rating: {
-        fontSize: 12,
-        fontWeight:'bold',
-        color: 'black', // White text for contrast
-        marginRight: 4,
-    },
-    ratingstar:{
-        fontSize: 9,
-        fontWeight:'bold',
-        color: 'green', // White text for contrast
-        marginRight: 4,
-        marginLeft:-4
-    },
-    review: {
-        fontSize: 12,
-        fontWeight:'bold',
-        color: 'black',
-        borderLeftWidth: 1, // Divider between rating and review
-        borderLeftColor: 'grey',
-        paddingLeft: 4,
-    },
-    cancel:{
-        position: 'absolute', // Position it absolutely within the parent
-        bottom: 185, // Distance from the bottom of the image
-        left: 142, // Distance from the left of the image
-        flexDirection: 'row', // Arrange rating and review horizontally
-        alignItems: 'center', // Center items vertically
-        color: 'rgba(255, 255, 255, 0.7)', // Semi-transparent background for better visibility
-        borderRadius: 12, // Rounded edges
-        elevation:35
-    }
     
     
 });

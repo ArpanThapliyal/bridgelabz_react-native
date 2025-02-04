@@ -1,10 +1,8 @@
-import React from "react";
-import { Linking } from "react-native";
+import React, { useState } from "react";
+import { Linking ,Modal,useWindowDimensions} from "react-native";
 import {
 View,
 Text,
-TextInput,
-SafeAreaView,
 ScrollView,
 StyleSheet,
 Image,
@@ -19,6 +17,10 @@ const flex_scrollview = ()=>{
         Linking.openURL(websitelink);
     }
 
+    const {height,width,fontScale,scale} = useWindowDimensions();
+
+    // modal
+    const [modal, setmodal] = useState(false);
     return(
     <>
     <View>
@@ -53,7 +55,7 @@ const flex_scrollview = ()=>{
      >
         <View style={s2.cards}>
             <Image
-              source={require('../images/demon_slayer.jpeg')}
+              source={require('../../images/demon_slayer.jpeg')}
               style = {s2.img}
             />
             <View style={[s2.card_below,s2.card1]}>
@@ -70,7 +72,7 @@ const flex_scrollview = ()=>{
         </View>    
         <View style={s2.cards}>
             <Image
-              source={require('../images/solo_levling.jpeg')}
+              source={require('../../images/solo_levling.jpeg')}
               style = {s2.img}
             />
             <View style={[s2.card_below,s2.card1]}>
@@ -83,6 +85,33 @@ const flex_scrollview = ()=>{
         
         </ScrollView>
     </View>
+
+    {/* dimensions */}
+
+    <Text style={{fontSize:20}}>{height}</Text>
+    <Text style={{fontSize:20}}>{width}</Text>
+    <Text style={{fontSize:20}}>{fontScale}</Text>
+    <Text style={{fontSize:20}}>{scale}</Text>
+
+    {/* modal */}
+    <View style={s2.main}>
+        <Modal
+            transparent={true}
+            visible={modal}
+            animationType='slide'
+        >
+            <View style={s2.supermodal}>
+                <View style={s2.modalcontainer}>
+                    <Text style={{fontSize:30}}> your modal is here </Text>
+                    <Button title="close" onPress={()=>setmodal(false)}/>
+                </View>
+            </View>
+        </Modal>
+        <View style={s2.buttonview}>
+            <Button title="click here" onPress={()=>setmodal(true)} ></Button>
+        </View>
+    </View>
+    
     </>
     )
 };
@@ -91,7 +120,8 @@ const s = StyleSheet.create({
     container :{
         flex :1,
         flexDirection : 'row',
-        padding:6
+        padding:6,
+        
     },
     cards :{
         // flex:1,
@@ -141,7 +171,7 @@ const s2 = StyleSheet.create({
     container :{
         flex:1,
         flexDirection :'row',
-        flexWrap:'wrap'
+        flexWrap:'wrap',
     },
     cards :{
         margin :20,
@@ -193,8 +223,28 @@ const s2 = StyleSheet.create({
     card1 :{
         
     },
-    
 
+    // modal
+    main:{
+        flex:1
+    },
+    supermodal:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
+    },
+    modalcontainer:{
+        backgroundColor:'lightblue',
+        padding:30,
+        borderRadius:15,
+        elevation:6
+         
+    },
+    buttonview:{
+        flex:1,
+        justifyContent:'flex-end'
+    }
+    
 });
 
 export default flex_scrollview;

@@ -2,8 +2,6 @@ import React,{useState} from 'react';
 import {
   Text,
   View,
-  Button,
-  Alert,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -46,7 +44,8 @@ const style = StyleSheet.create({
         marginRight:8,
         marginBottom:2,
         marginTop:3,
-        padding:8
+        padding:8,
+        marginLeft:-14
     },
     collectiontxt:{
         fontSize:15,

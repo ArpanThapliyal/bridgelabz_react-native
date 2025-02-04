@@ -9,9 +9,9 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import Userhabbits from './components/userhabbits';
-import Newtopic1 from './components/newtopic1';
-import Flex_scrollview from './components/flex_scrollview';
+import Userhabbits from './components/learnings/userhabbits';
+import Newtopic1 from './components/learnings/newtopic1';
+import Flex_scrollview from './components/learnings/flex_scrollview';
 import Start from './pro_comp/myntra/start';
 import Password_start from './components/password_generator/password_start';
 
@@ -27,6 +27,7 @@ const App =()=>{
          
   return (
     <>
+    
     <ScrollView style = {style.bg1}>
     <SafeAreaView >
     {/* <View>
@@ -37,24 +38,20 @@ const App =()=>{
       <Button title='naam karan' onPress={change}/>
     
     </View> */}
-    
     {/* all the component are here*/}
     {/* <Userhabbits/>  */}
     {/* <Userdetail/>  */}
     {/* <Newtopic1/> */}
-    {/* <Flex_scrollview/> */}
+    <Flex_scrollview/>
     
     {/* password generator */}
-    <Password_start/>
+    {/* <Password_start/> */}
     
     {/* contain myntra wishlist clone */}
     {/* <Start/> */}
     
-
-
-    </SafeAreaView>
-    </ScrollView> 
-
+    </SafeAreaView> 
+    </ScrollView>
     </>
   )
 };
@@ -72,7 +69,7 @@ const Userdetail =()=>{
 
 const style = StyleSheet.create({
   textdec : {color : "blue",fontSize : 40},
-  bg1 : {backgroundColor : "white"},
+  bg1 : {backgroundColor : "white",},
   bg2 : {backgroundColor : "pink", marginTop : 20},
 })
 
